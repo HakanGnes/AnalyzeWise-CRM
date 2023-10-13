@@ -1,6 +1,7 @@
 # AnalyzeWise-CRM
 In the world of retail, success hinges on mastering data. RetailGenius offers deep retail analytics to empower your business growth.
-
+## Streamlit App
+https://anlyzewisecrm.streamlit.app/
 ## Project Overview
 ### AnalyzeWise-CRM is a project with a mission to understand data in the retail world and support the growth of your business. Build the future of your retail business with the following features:
 ![GitHub Logo](https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/RFmf.png)
@@ -24,8 +25,7 @@ In the world of retail, success hinges on mastering data. RetailGenius offers de
 
 AnalyzeWise-CRM empowers you to better understand your retail business, target your customers more effectively, and aim for growth through data-driven decisions.
 
-## Streamlit App
-https://anlyzewisecrm.streamlit.app/
+
 
 
 

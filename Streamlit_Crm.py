@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import openpyxl
 import matplotlib.pyplot as plt
 from crm_Project import create_rfm, create_cltv_c, create_cltv_p,check_id,arl_recommender,rules,create_rules
 

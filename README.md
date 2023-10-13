@@ -14,6 +14,7 @@ In the world of retail, success hinges on mastering data. RetailGenius offers de
 
 ### 📊 Expected Purchase Values: Create robust sales forecasts to optimize inventory management and meet demand.
 ![GitHub Logo](https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/CLTV-%20Expected%20Purchase%20Prediction.png)
+![GitHub Logo](https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/graphic2.png)
 
 ### 💼 CLTV- Expected Profit and CLV Prediction: Refers to an analytical method and modeling process that helps predict customers' future profit potential and estimate their Customer Lifetime Value.
 ![GitHub Logo](https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/CLTV-%20Expected%20Profit%20and%20CLV%20Prediction.png)

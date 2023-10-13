@@ -16,4 +16,4 @@ AnalyzeWise-CRM is a project with a mission to understand data in the retail wor
 
 AnalyzeWise-CRM empowers you to better understand your retail business, target your customers more effectively, and aim for growth through data-driven decisions.
 
-![GitHub Logo](https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/profile.png)https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/profile.png)
+![GitHub Logo]()https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/profile.png)

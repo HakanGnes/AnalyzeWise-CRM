@@ -19,7 +19,7 @@ In the world of retail, success hinges on mastering data. RetailGenius offers de
 ![GitHub Logo](https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/CLTV-%20Expected%20Profit%20and%20CLV%20Prediction.png)
 
 ### 📬 Product Recommendation: A recommendation system for the opportunity to cross-sell products that have been chosen together.
-![GitHub Logo]([https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/CLTV-%20Expected%20Profit%20and%20CLV%20Prediction.png](https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/Product%20Recommendation.png))
+![GitHub Logo](https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/Product%20Recommendation.png)
 
 AnalyzeWise-CRM empowers you to better understand your retail business, target your customers more effectively, and aim for growth through data-driven decisions.
 

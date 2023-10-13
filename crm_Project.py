@@ -9,10 +9,10 @@ pd.set_option('display.width', 500)
 pd.set_option('display.float_format', lambda x: '%.4f' % x)
 from mlxtend.frequent_patterns import apriori, association_rules
 
-df_ = pd.read_excel("Data/Sales-Transaction-v.4a.xlsx")
-df = df_.copy()
-df.head()
-df.shape
+#df_ = pd.read_excel("Data/Sales-Transaction-v.4a.xlsx")
+#df = df_.copy()
+#df.head()
+#df.shape
 # df = df[~df["TransactionNo"].str.contains("C", na=False)]
 # df.info()
 

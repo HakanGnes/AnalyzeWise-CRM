@@ -8,7 +8,7 @@ from lifetimes import GammaGammaFitter
 from crm_Project import create_rfm, create_cltv_c, create_cltv_p,check_id,arl_recommender,rules,create_rules
 
 # Upload Data
-df = pd.read_excel("./Sales-Transaction-v.4a.xlsx")
+df = pd.read_excel("./CrmData.xlsx")
 
 # Create DataFrames
 rfm_df = create_rfm(df)

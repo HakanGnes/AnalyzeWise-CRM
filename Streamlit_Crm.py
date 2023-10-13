@@ -33,7 +33,7 @@ with row3_1:
     st.markdown("📊 Expected Purchase Values: Create robust sales forecasts to optimize inventory management and meet demand.")
     st.markdown("💼 CLTV- Expected Profit and CLV Prediction: Refers to an analytical method and modeling process that helps predict customers' future profit potential and estimate their Customer Lifetime Value.")
     st.markdown("📬 Product Recommendation: A recommendation system for the opportunity to cross-sell products that have been chosen together.")
-    st.markdown("You can find the source code in the [Hakan GitHub Repository](https://github.com/tdenzl/BuLiAn)")
+    st.markdown("You can find the source code in the [Hakan GitHub Repository](https://github.com/HakanGnes/AnalyzeWise-CRM)")
     st.write("Choose Analyze option from the sidebar.")
 
 

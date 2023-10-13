@@ -33,7 +33,6 @@ def replace_with_thresholds(dataframe, variable):
 
 def retail_data_prep(dataframe):
     dataframe.dropna(inplace=True)
-    dataframe = dataframe[~dataframe["TransactionNo"].str.contains("C", na=False)]
     dataframe['Date'] = pd.to_datetime(dataframe['Date'], format='%m/%d/%Y')
     dataframe = dataframe[dataframe["Quantity"] > 0]
     dataframe = dataframe[dataframe["Price"] > 0]
@@ -50,7 +49,6 @@ def create_rfm(dataframe, csv=False):
     replace_with_thresholds(dataframe, "Quantity")
     replace_with_thresholds(dataframe, "Price")
     dataframe['Date'] = pd.to_datetime(dataframe['Date'], format='%m/%d/%Y')
-    dataframe = dataframe[~dataframe["TransactionNo"].str.contains("C", na=False)]
 
     # RFM METRIKLERININ HESAPLANMASI
     today_date = dt.datetime(2019, 12, 11)
@@ -95,7 +93,6 @@ def create_cltv_c(dataframe, profit=0.10, csv=False):
     replace_with_thresholds(dataframe, "Quantity")
     replace_with_thresholds(dataframe, "Price")
     dataframe['Date'] = pd.to_datetime(dataframe['Date'], format='%m/%d/%Y')
-    dataframe = dataframe[~dataframe["TransactionNo"].str.contains("C", na=False)]
 
     cltv_c = dataframe.groupby('CustomerNo').agg({'TransactionNo': lambda x: x.nunique(),
                                                   'Quantity': lambda x: x.sum(),
@@ -126,7 +123,6 @@ def create_cltv_p(dataframe, month=3, csv=False):
     dataframe["TotalPrice"] = dataframe["Quantity"] * dataframe["Price"]
     dataframe.dropna(inplace=True)
     dataframe['Date'] = pd.to_datetime(dataframe['Date'], format='%m/%d/%Y')
-    dataframe = dataframe[~dataframe["TransactionNo"].str.contains("C", na=False)]
     replace_with_thresholds(dataframe, "Quantity")
     replace_with_thresholds(dataframe, "Price")
     today_date = dt.datetime(2019, 12, 11)

@@ -3,7 +3,7 @@ In the world of retail, success hinges on mastering data. RetailGenius offers de
 
 ## Project Overview
 ### AnalyzeWise-CRM is a project with a mission to understand data in the retail world and support the growth of your business. Build the future of your retail business with the following features:
-![GitHub Logo](https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/profile.png)
+![GitHub Logo](https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/RFmf.png)
 
 ### 📈 RFM Analysis: Understand customer behaviors and create personalized targeting using RFM analysis.
 ![GitHub Logo](https://github.com/HakanGnes/AnalyzeWise-CRM/blob/main/Images/Rfm.png)

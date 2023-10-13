@@ -8,7 +8,7 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 500)
 pd.set_option('display.float_format', lambda x: '%.4f' % x)
 from mlxtend.frequent_patterns import apriori, association_rules
-df = pd.read_excel("./Sales-Transaction-v.4a.xlsx")
+df = pd.read_excel("./CrmData.xlsx")
 #df_ = pd.read_excel("Data/Sales-Transaction-v.4a.xlsx")
 #df = df_.copy()
 #df.head()

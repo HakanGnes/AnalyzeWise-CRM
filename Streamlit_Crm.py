@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import openpyxl
 import matplotlib.pyplot as plt
+from mlxtend.frequent_patterns import apriori, association_rules
+from lifetimes import BetaGeoFitter
+from lifetimes import GammaGammaFitter
 from crm_Project import create_rfm, create_cltv_c, create_cltv_p,check_id,arl_recommender,rules,create_rules
 
 # Upload Data

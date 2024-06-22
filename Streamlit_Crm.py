@@ -182,7 +182,6 @@ elif analysis_choice == 'CLTV-C Analyze':
     st.write("Profit margin: ", selected_customer_data['profit_margin'])
     st.write("Customer Value: ", selected_customer_data['customer_value'])
     st.write("CLTV-C Value: ", selected_customer_data['cltv'])
-    st.write("Segment: ", cltv_p_df['segment'])
 
     # Create a bar chart to compare the selected customer's CLTV-C value with the average CLTV-C value
     customer_cltv = selected_customer_data['cltv']

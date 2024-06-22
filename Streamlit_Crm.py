@@ -165,10 +165,10 @@ elif analysis_choice == 'CLTV-C Analyze':
     st.header('CLTV-C Analyze')
 
     # Select Segment
-    selected_segment = st.selectbox('Select Segment', cltv_c['segment'].unique())
+    selected_segment = st.selectbox('Select Segment', cltv_c_df['segment'].unique())
 
     # Customer number selection interface according to the selected segment
-    filtered_customers = cltv_c[cltv_c['segment'] == selected_segment]['CustomerNo']
+    filtered_customers = cltv_c_df[cltv_c_df['segment'] == selected_segment]['CustomerNo']
     selected_customer = st.selectbox('Select Customer Number', filtered_customers)
 
     # View CLTV-C value of selected customer

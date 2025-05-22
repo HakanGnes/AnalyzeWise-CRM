@@ -67,7 +67,7 @@ def create_rfm(dataframe, csv=False):
                         rfm['frequency_score'].astype(str))
 
 
-    seg_map_tr = {
+    seg_map = {
     r'[1-2][1-2]': 'kış uykusundakiler',          
     r'[1-2][3-4]': 'riskte olanlar',              
     r'[1-2]5'    : 'kaybedilmemeli',             

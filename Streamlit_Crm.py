@@ -44,7 +44,7 @@ if secenek == "Giriş / Hakkında":
     st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/CRM-logo.png/600px-CRM-logo.png", width=120)
     st.title("AnalyzeWise CRM")
     st.markdown("""
-    ### Yönetim Bilişim Sistemleri Yüksek Lisans Dönem Projesi
+    ### WEB TABANLI CRM SİSTEMİ TASARIMI VE UYGULANMASININ MÜŞTERİ MEMNUNİYETİNE VE İŞ SÜREÇLERİ VERİMLİLİĞİNE ETKİSİ
 
     Bu uygulama, küçük ve orta ölçekli işletmeler için müşteri ilişkileri yönetimi (CRM) süreçlerini analiz etmek ve veri odaklı stratejik kararlar almak amacıyla geliştirilmiştir.  
     Müşteri verilerinin analiz edilmesiyle daha doğru segmentasyon, yaşam boyu değer (CLTV) tahmini, kâr analizi ve ürün öneri sistemi sağlanmaktadır.
@@ -58,7 +58,7 @@ if secenek == "Giriş / Hakkında":
     ---
 
     **Proje Sahibi:** Hakan Güneş  
-    **Danışman:** [Danışman İsmi]  
+    **Danışman:** [Prof. Dr. Selçuk Özdemir]  
     **Tarih:** 2025  
     """)
     st.info("Sol menüden analiz türünü seçerek uygulamayı kullanmaya başlayabilirsiniz.")

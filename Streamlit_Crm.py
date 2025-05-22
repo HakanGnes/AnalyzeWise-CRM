@@ -1,204 +1,196 @@
 import streamlit as st
 import pandas as pd
-import openpyxl
 import matplotlib.pyplot as plt
-from mlxtend.frequent_patterns import apriori, association_rules
-from lifetimes import BetaGeoFitter
-from lifetimes import GammaGammaFitter
-from crm_Project import create_rfm, create_cltv_c, create_cltv_p,check_id,arl_recommender,rules,create_rules
+from crm_Project import create_rfm, create_cltv_c, create_cltv_p, check_id, arl_recommender, create_rules
 
-# Upload Data
+# --- Genel Ayarlar ---
+st.set_page_config(page_title="AnalyzeWise CRM", page_icon=":bar_chart:", layout="wide")
+
+# --- Data Yükleme ---
 df = pd.read_excel("./CrmData.xlsx")
-
-# Create DataFrames
 rfm_df = create_rfm(df)
 rfm_df.reset_index(inplace=True)
 cltv_p_df = create_cltv_p(df)
-rules = create_rules(df)
 cltv_c_df = create_cltv_c(df)
-# Sidebar choice Bar
-analysis_choice = st.sidebar.radio('Choose Analyze 👇', ('RFM Analyze','CLTV- Expected Purchase Prediction',"CLTV- Expected Profit and CLV Prediction",'CLTV-C Analyze',"Product Recommendation"))
+rules = create_rules(df)
 
-row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns((.1, 2.3, .1, 1.3, .1))
-with row0_1:
-    st.title('AnalyzeWise CRM')
-with row0_2:
-    st.text("")
-    st.subheader('Streamlit App by [Hakan Gunes](https://www.linkedin.com/in/hakan-g%C3%BCne%C5%9F-a3b14720b/)')
-row3_spacer1, row3_1, row3_spacer2 = st.columns((.1, 3.2, .1))
-with row3_1:
-    st.markdown("In the world of retail, success hinges on mastering data. RetailGenius offers deep retail analytics to empower your business growth.")
-    st.markdown("📈 RFM Analysis: Understand customer behaviors and create personalized targeting using RFM analysis.")
-    st.markdown("💡 CLTV Analysis: Predict customer lifetime value and boost your profits. Identify which customers are the most valuable for your business.")
-    st.markdown("📊 Expected Purchase Values: Create robust sales forecasts to optimize inventory management and meet demand.")
-    st.markdown("💼 CLTV- Expected Profit and CLV Prediction: Refers to an analytical method and modeling process that helps predict customers' future profit potential and estimate their Customer Lifetime Value.")
-    st.markdown("📬 Product Recommendation: A recommendation system for the opportunity to cross-sell products that have been chosen together.")
-    st.markdown("You can find the source code in the [Hakan GitHub Repository](https://github.com/HakanGnes/AnalyzeWise-CRM)")
-    st.write("Choose Analyze option from the sidebar.")
+# --- Modern Tasarım için Stil ---
+st.markdown("""
+    <style>
+    body { background-color: #f5f7fa; }
+    .css-1v0mbdj {background-color: #2368b8;}
+    .css-1d391kg {color: #2368b8;}
+    .stButton>button { background-color: #23c486; color: white;}
+    </style>
+""", unsafe_allow_html=True)
 
+# --- Sidebar ---
+st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/CRM-logo.png/600px-CRM-logo.png", width=90)
+st.sidebar.title("🔍 Analiz Menüsü")
+secenek = st.sidebar.radio(
+    "Lütfen bir analiz seçin:",
+    (
+        "Giriş / Hakkında",
+        "RFM Analizi",
+        "CLTV - Satın Alma Tahmini",
+        "CLTV - Kâr ve Değer Tahmini",
+        "CLTV-C Analizi",
+        "Ürün Öneri Sistemi"
+    )
+)
 
-if analysis_choice == 'RFM Analyze':
-    st.header('RFM Analyze')
-    # Segment selection interface
-    selected_segment = st.selectbox('Select Segment', rfm_df['segment'].unique())
-    # Filter by selected segment
-    filtered_customers = rfm_df[rfm_df['segment'] == selected_segment]['CustomerNo']
-    st.write(f"Customer numbers of {selected_segment} segment({len(filtered_customers)} customers):")
-    st.write(filtered_customers)
+# --- Akademik Giriş Sayfası ---
+if secenek == "Giriş / Hakkında":
+    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/CRM-logo.png/600px-CRM-logo.png", width=120)
+    st.title("AnalyzeWise CRM")
+    st.markdown("""
+    ### Yönetim Bilişim Sistemleri Yüksek Lisans Dönem Projesi
 
-    # Calculate the percentage of each segment relative to other segments
-    segment_counts = rfm_df['segment'].value_counts()
-    segment_percentages = segment_counts / segment_counts.sum() * 100
+    Bu uygulama, küçük ve orta ölçekli işletmeler için müşteri ilişkileri yönetimi (CRM) süreçlerini analiz etmek ve veri odaklı stratejik kararlar almak amacıyla geliştirilmiştir.  
+    Müşteri verilerinin analiz edilmesiyle daha doğru segmentasyon, yaşam boyu değer (CLTV) tahmini, kâr analizi ve ürün öneri sistemi sağlanmaktadır.
 
-    # Get percentage of selected segment
-    selected_segment_percentage = segment_percentages[selected_segment]
+    **Başlıca Analiz Modülleri:**
+    - 📈 **RFM Analizi:** Müşterileri alışveriş sıklığı, son alışveriş zamanı ve harcama tutarına göre segmentlere ayırır.
+    - 💡 **CLTV Analizi:** Müşteri yaşam boyu değerini tahmin ederek, en değerli müşterilere odaklanmanızı sağlar.
+    - 💰 **Beklenen Satın Alma & Kâr Tahminleri:** Müşteriler bazında gelecekteki satın alma ve kâr beklentilerini sunar.
+    - 🎯 **Ürün Öneri Sistemi:** Birlikte satın alınan ürünlere göre çapraz satış fırsatlarını analiz eder.
 
-    # Get percentage distribution of other segments (subtract selected segment)
-    other_segments_percentage = segment_percentages.drop(index=selected_segment)
+    ---
 
-    # Create a pie chart showing the selected segment as a percentage distribution relative to other segments
-    labels = other_segments_percentage.index.tolist()
-    sizes = other_segments_percentage.values.tolist()
-    sizes.append(selected_segment_percentage)
-    labels.append(selected_segment)
-    explode = [0.1 if label == selected_segment else 0 for label in labels]  # Let the first slice separate slightly.
+    **Proje Sahibi:** Hakan Güneş  
+    **Danışman:** [Danışman İsmi]  
+    **Tarih:** 2025  
+    """)
+    st.info("Sol menüden analiz türünü seçerek uygulamayı kullanmaya başlayabilirsiniz.")
+
+# --- RFM Analizi ---
+elif secenek == "RFM Analizi":
+    st.header('📈 RFM Analizi')
+    secili_segment = st.selectbox('Segment Seçiniz:', rfm_df['segment'].unique())
+    filtreli_musteriler = rfm_df[rfm_df['segment'] == secili_segment]['CustomerNo']
+    st.write(f"**{secili_segment}** segmentindeki müşteri numaraları (**{len(filtreli_musteriler)}** müşteri):")
+    st.write(list(filtreli_musteriler))
+
+    # Segment dağılım grafiği
+    segment_sayilari = rfm_df['segment'].value_counts()
+    segment_yuzdeleri = segment_sayilari / segment_sayilari.sum() * 100
+    secili_segment_yuzde = segment_yuzdeleri[secili_segment]
+    diger_segmentler_yuzde = segment_yuzdeleri.drop(index=secili_segment)
+
+    labels = diger_segmentler_yuzde.index.tolist() + [secili_segment]
+    sizes = diger_segmentler_yuzde.values.tolist() + [secili_segment_yuzde]
+    explode = [0.1 if label == secili_segment else 0 for label in labels]
 
     fig1, ax1 = plt.subplots()
-    ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
-            shadow=True, startangle=90)
+    ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)
     ax1.axis('equal')
-
-    st.subheader(f"Distribution of {selected_segment} segment compared to other segments")
+    st.subheader(f"Seçili Segmentin Dağılımı")
     st.pyplot(fig1)
 
-elif analysis_choice == 'CLTV- Expected Purchase Prediction':
-    st.header('CLTV- Expected Purchase Prediction')
+# --- CLTV - Satın Alma Tahmini ---
+elif secenek == "CLTV - Satın Alma Tahmini":
+    st.header('💡 CLTV - Beklenen Satın Alma Tahmini')
+    secili_segment = st.selectbox('Segment Seçiniz:', cltv_p_df['segment'].unique())
+    filtreli_musteriler = cltv_p_df[cltv_p_df['segment'] == secili_segment]['CustomerNo']
+    musteri_1 = st.selectbox('Müşteri 1 Seçiniz:', filtreli_musteriler)
+    musteri_2 = st.selectbox('Müşteri 2 Seçiniz:', filtreli_musteriler)
 
-    # CLTV ve Segment seçme arayüzü
-    selected_segment = st.selectbox('Select Segment', cltv_p_df['segment'].unique())
+    data_1 = cltv_p_df[cltv_p_df['CustomerNo'] == musteri_1]
+    data_2 = cltv_p_df[cltv_p_df['CustomerNo'] == musteri_2]
+    st.write(f"**{musteri_1}** için Beklenen Satın Alma:")
+    st.write("1 hafta:", data_1['expected_purc_1_week'].values[0])
+    st.write("1 ay:", data_1['expected_purc_1_month'].values[0])
+    st.write("3 ay:", data_1['expected_purc_3_month'].values[0])
+    st.write("6 ay:", data_1['expected_purc_6_month'].values[0])
+    st.write("9 ay:", data_1['expected_purc_9_month'].values[0])
+    st.write("12 ay:", data_1['expected_purc_12_month'].values[0])
 
-    # Seçilen segmente göre müşteri numarası seçme arayüzü
-    filtered_customers = cltv_p_df[cltv_p_df['segment'] == selected_segment]['CustomerNo']
-    selected_customer1 = st.selectbox('Select Customer Number 1', filtered_customers)
+    st.write(f"**{musteri_2}** için Beklenen Satın Alma:")
+    st.write("1 hafta:", data_2['expected_purc_1_week'].values[0])
+    st.write("1 ay:", data_2['expected_purc_1_month'].values[0])
+    st.write("3 ay:", data_2['expected_purc_3_month'].values[0])
+    st.write("6 ay:", data_2['expected_purc_6_month'].values[0])
+    st.write("9 ay:", data_2['expected_purc_9_month'].values[0])
+    st.write("12 ay:", data_2['expected_purc_12_month'].values[0])
 
-    filtered_customers = cltv_p_df[cltv_p_df['segment'] == selected_segment]['CustomerNo']
-    selected_customer2 = st.selectbox('Select Customer Number 2', filtered_customers)
-
-    # Seçilen müşteri için beklenen satın alma değerlerini görüntüle - Display for the first customer
-    selected_customer_data1 = cltv_p_df[cltv_p_df['CustomerNo'] == selected_customer1]
-    st.write(f"{selected_customer1} customer's Expected Purchase Values:")
-    st.write("1 week: ", selected_customer_data1['expected_purc_1_week'].values[0])
-    st.write("1 month: ", selected_customer_data1['expected_purc_1_month'].values[0])
-    st.write("3 month: ", selected_customer_data1['expected_purc_3_month'].values[0])
-    st.write("6 month: ", selected_customer_data1['expected_purc_6_month'].values[0])
-    st.write("9 month: ", selected_customer_data1['expected_purc_9_month'].values[0])
-    st.write("12 month: ", selected_customer_data1['expected_purc_12_month'].values[0])
-
-    # Seçilen müşteri için beklenen satın alma değerlerini görüntüle - Display for the second customer
-    selected_customer_data2 = cltv_p_df[cltv_p_df['CustomerNo'] == selected_customer2]
-    st.write(f"{selected_customer2} customer's Expected Purchase Values:")
-    st.write("1 week: ", selected_customer_data2['expected_purc_1_week'].values[0])
-    st.write("1 month: ", selected_customer_data2['expected_purc_1_month'].values[0])
-    st.write("3 month: ", selected_customer_data2['expected_purc_3_month'].values[0])
-    st.write("6 month: ", selected_customer_data2['expected_purc_6_month'].values[0])
-    st.write("9 month: ", selected_customer_data2['expected_purc_9_month'].values[0])
-    st.write("12 month: ", selected_customer_data2['expected_purc_12_month'].values[0])
-
-    comparison_data = pd.DataFrame({
-        'Months': ['1 Week', '1 Month', '3 Months', '6 Months', '9 Months', '12 Months'],
-        f'{selected_customer1}': [
-            selected_customer_data1['expected_purc_1_week'].values[0],
-            selected_customer_data1['expected_purc_1_month'].values[0],
-            selected_customer_data1['expected_purc_3_month'].values[0],
-            selected_customer_data1['expected_purc_6_month'].values[0],
-            selected_customer_data1['expected_purc_9_month'].values[0],
-            selected_customer_data1['expected_purc_12_month'].values[0],
+    karsilastirma = pd.DataFrame({
+        'Aylar': ['1 Hafta', '1 Ay', '3 Ay', '6 Ay', '9 Ay', '12 Ay'],
+        f'{musteri_1}': [
+            data_1['expected_purc_1_week'].values[0],
+            data_1['expected_purc_1_month'].values[0],
+            data_1['expected_purc_3_month'].values[0],
+            data_1['expected_purc_6_month'].values[0],
+            data_1['expected_purc_9_month'].values[0],
+            data_1['expected_purc_12_month'].values[0],
         ],
-        f'{selected_customer2}': [
-            selected_customer_data2['expected_purc_1_week'].values[0],
-            selected_customer_data2['expected_purc_1_month'].values[0],
-            selected_customer_data2['expected_purc_3_month'].values[0],
-            selected_customer_data2['expected_purc_6_month'].values[0],
-            selected_customer_data2['expected_purc_9_month'].values[0],
-            selected_customer_data2['expected_purc_12_month'].values[0],
+        f'{musteri_2}': [
+            data_2['expected_purc_1_week'].values[0],
+            data_2['expected_purc_1_month'].values[0],
+            data_2['expected_purc_3_month'].values[0],
+            data_2['expected_purc_6_month'].values[0],
+            data_2['expected_purc_9_month'].values[0],
+            data_2['expected_purc_12_month'].values[0],
         ]
     })
+    karsilastirma['Ortalama'] = karsilastirma.iloc[:, 1:].mean(axis=1)
+    karsilastirma = karsilastirma.sort_values(by='Ortalama')
+    st.bar_chart(karsilastirma.set_index('Aylar'))
 
+# --- CLTV - Kâr ve Değer Tahmini ---
+elif secenek == "CLTV - Kâr ve Değer Tahmini":
+    st.header('💰 CLTV - Beklenen Kâr ve Yaşam Boyu Değer')
+    secili_segment = st.selectbox('Segment Seçiniz:', cltv_p_df['segment'].unique())
+    filtreli_musteriler = cltv_p_df[cltv_p_df['segment'] == secili_segment]['CustomerNo']
+    musteri_1 = st.selectbox('Müşteri 1 Seçiniz:', filtreli_musteriler)
+    musteri_2 = st.selectbox('Müşteri 2 Seçiniz:', filtreli_musteriler)
+    data_1 = cltv_p_df[cltv_p_df['CustomerNo'] == musteri_1]
+    data_2 = cltv_p_df[cltv_p_df['CustomerNo'] == musteri_2]
+    st.write(f"**{musteri_1}** Bilgileri:")
+    st.write("Beklenen Ortalama Kâr:", data_1['expected_average_profit'].values[0])
+    st.write("Müşteri Yaşam Boyu Değeri (CLV):", data_1['clv'].values[0])
+    st.write("Segment:", data_1['segment'].values[0])
 
-    # Add the average values
-    comparison_data['Average'] = comparison_data.iloc[:, 1:].mean(axis=1)
+    st.write(f"**{musteri_2}** Bilgileri:")
+    st.write("Beklenen Ortalama Kâr:", data_2['expected_average_profit'].values[0])
+    st.write("Müşteri Yaşam Boyu Değeri (CLV):", data_2['clv'].values[0])
+    st.write("Segment:", data_2['segment'].values[0])
 
-    # Sort the DataFrame by the 'Average' column
-    comparison_data = comparison_data.sort_values(by='Average')
+# --- CLTV-C Analizi ---
+elif secenek == "CLTV-C Analizi":
+    st.header('📊 CLTV-C Analizi')
+    secili_segment = st.selectbox('Segment Seçiniz:', cltv_c_df['segment'].unique())
+    filtreli_musteriler = cltv_c_df[cltv_c_df['segment'] == secili_segment].index
+    musteri = st.selectbox('Müşteri Seçiniz:', filtreli_musteriler)
+    data = cltv_c_df.loc[musteri]
+    st.write(f"**{musteri}** müşterisinin CLTV-C Analizi:")
+    st.write("Toplam İşlem Sayısı:", data['total_transaction'])
+    st.write("Toplam Ürün Adedi:", data['total_unit'])
+    st.write("Toplam Tutar:", data['total_price'])
+    st.write("Ortalama Sipariş Tutarı:", data['avg_order_value'])
+    st.write("Satın Alma Sıklığı:", data['purchase_frequency'])
+    st.write("Kâr Marjı:", data['profit_margin'])
+    st.write("Müşteri Değeri:", data['customer_value'])
+    st.write("CLTV-C Değeri:", data['cltv'])
+    st.bar_chart({'Seçili Müşteri': data['cltv'], 'Ortalama CLTV': cltv_c_df['cltv'].mean()})
 
-    # Create a bar chart to compare the two customers for each month
-    st.bar_chart(comparison_data.set_index('Months'))
+# --- Ürün Öneri Sistemi ---
+elif secenek == "Ürün Öneri Sistemi":
+    st.header('🎯 Ürün Öneri Sistemi')
+    secili_urun = st.selectbox('Ürün Seçiniz:', df['ProductNo'].unique())
+    onerilecek_adet = st.slider('Kaç ürün önerisi yapılacak?', 1, 10, 5)
+    if st.button('Önerileri Gör'):
+        oneriler = arl_recommender(rules, secili_urun, onerilecek_adet)
+        st.success(f"**{secili_urun}** için önerilen ürünler:")
+        for i, urun in enumerate(oneriler, start=1):
+            st.write(f"{i}. Öneri: {urun}")
 
-elif analysis_choice == 'CLTV- Expected Profit and CLV Prediction':
-    st.header('CLTV- Expected Profit and CLV Prediction')
+# --- Alt Bilgi ---
+st.markdown("""
+---
+:bar_chart: AnalyzeWise CRM | © 2025 Hakan Güneş  
+Yönetim Bilişim Sistemleri Yüksek Lisans Dönem Projesi
+""")
 
-    # Select Segment
-    selected_segment = st.selectbox('Select Segment', cltv_p_df['segment'].unique())
-
-    # Customer number selection interface according to the selected segment
-    filtered_customers = cltv_p_df[cltv_p_df['segment'] == selected_segment]['CustomerNo']
-    selected_customer1 = st.selectbox('Select Customer Number 1', filtered_customers)
-
-    filtered_customers = cltv_p_df[cltv_p_df['segment'] == selected_segment]['CustomerNo']
-    selected_customer2 = st.selectbox('Select Customer Number 2', filtered_customers)
-
-    # Display for the first customer
-    selected_customer_data1 = cltv_p_df[cltv_p_df['CustomerNo'] == selected_customer1]
-    st.write(f"{selected_customer2} customer's Information:")
-    st.write("Expected Average Profit: ", selected_customer_data1['expected_average_profit'].values[0])
-    st.write("CLV (Customer Lifetime Value): ", selected_customer_data1['clv'].values[0])
-    st.write("Segment: ", selected_customer_data1['segment'].values[0])
-
-    # Display for the second customer
-    selected_customer_data2 = cltv_p_df[cltv_p_df['CustomerNo'] == selected_customer2]
-    st.write(f"{selected_customer2} customer's Information:")
-    st.write("Expected Average Profit: ", selected_customer_data2['expected_average_profit'].values[0])
-    st.write("CLV (Customer Lifetime Value): ", selected_customer_data2['clv'].values[0])
-    st.write("Segment: ", selected_customer_data2['segment'].values[0])
-
-elif analysis_choice == 'CLTV-C Analyze':
-    st.header('CLTV-C Analyze')
-
-    # Select Segment
-    selected_segment = st.selectbox('Select Segment', cltv_p_df['segment'].unique())
-
-    # Customer number selection interface according to the selected segment
-    filtered_customers = cltv_p_df[cltv_p_df['segment'] == selected_segment]['CustomerNo']
-    selected_customer = st.selectbox('Select Customer Number', filtered_customers)
-
-    # View CLTV-C value of selected customer
-    selected_customer_data = cltv_c_df.loc[selected_customer]
-    st.write(f"{selected_customer} customer's CLTV-C Analysis:")
-    st.write("Total Number of Transactions: ", selected_customer_data['total_transaction'])
-    st.write("Total Number of Products: ", selected_customer_data['total_unit'])
-    st.write("Total amount: ", selected_customer_data['total_price'])
-    st.write("Average Order Value: ", selected_customer_data['avg_order_value'])
-    st.write("Purchase Frequency: ", selected_customer_data['purchase_frequency'])
-    st.write("Profit margin: ", selected_customer_data['profit_margin'])
-    st.write("Customer Value: ", selected_customer_data['customer_value'])
-    st.write("CLTV-C Value: ", selected_customer_data['cltv'])
-
-    # Create a bar chart to compare the selected customer's CLTV-C value with the average CLTV-C value
-    customer_cltv = selected_customer_data['cltv']
-    avg_cltv = cltv_c_df['cltv'].mean()
-    st.bar_chart({'Selected Customer': customer_cltv, 'Average CLTV': avg_cltv})
-
-
-elif analysis_choice == 'Product Recommendation':
-    st.header('Product Recommendations')
-    selected_product = st.selectbox('Select Product', df['ProductNo'].unique())
-    recommendation_count = st.slider('How Many Product Recommendations Should Be Made?', 1, 10, 5)
-
-    if st.button('View Recommendations'):
-        recommendations = arl_recommender(rules, selected_product, recommendation_count)
-        st.write(f"{selected_product} for recommended products :")
-        for i, recommendation in enumerate(recommendations, start=1):
-            st.write(f"{i}. Recommendation: {recommendation}")
 
 
 

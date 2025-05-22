@@ -66,18 +66,18 @@ def create_rfm(dataframe, csv=False):
     rfm["RFM_SCORE"] = (rfm['recency_score'].astype(str) +
                         rfm['frequency_score'].astype(str))
 
-    # SEGMENTLERIN ISIMLENDIRILMESI
+
     seg_map_tr = {
-    r'[1-2][1-2]': 'kış uykusundakiler',          # hibernating
-    r'[1-2][3-4]': 'riskte olanlar',              # at_risk
-    r'[1-2]5'    : 'kaybedilmemeli',              # cant_loose
-    r'3[1-2]'    : 'uykuya yakın',                # about_to_sleep
-    r'33'        : 'ilgi gerek',                  # need_attention
-    r'[3-4][4-5]': 'sadık müşteriler',            # loyal_customers
-    r'41'        : 'umut veren',                  # promising
-    r'51'        : 'yeni müşteriler',             # new_customers
-    r'[4-5][2-3]': 'potansiyel sadıklar',         # potential_loyalists
-    r'5[4-5]'    : 'şampiyonlar'                  # champions
+    r'[1-2][1-2]': 'kış uykusundakiler',          
+    r'[1-2][3-4]': 'riskte olanlar',              
+    r'[1-2]5'    : 'kaybedilmemeli',             
+    r'3[1-2]'    : 'uykuya yakın',                
+    r'33'        : 'ilgi gerek',                 
+    r'[3-4][4-5]': 'sadık müşteriler',            
+    r'41'        : 'umut veren',                 
+    r'51'        : 'yeni müşteriler',             
+    r'[4-5][2-3]': 'potansiyel sadıklar',         
+    r'5[4-5]'    : 'şampiyonlar'                 
     }
 
     rfm['segment'] = rfm['RFM_SCORE'].replace(seg_map, regex=True)

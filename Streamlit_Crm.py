@@ -47,7 +47,9 @@ if secenek == "Giriş / Hakkında":
 
     **İş Problemi:** Küçük ve orta ölçekli işletmeler (KOBİ’ler) genellikle müşteri ilişkileri yönetimi için profesyonel CRM yazılımlarına erişemiyor; 
     abonelik ücretleri, uzman personel ihtiyacı ve teknik kurulum engelleri nedeniyle veri­-odaklı karar süreçlerini sağlıklı biçimde kuramıyorlar.
+    
     **Çalışmanın Önemi:** Literatürde yaygın olan RFM, BG-NBD ve Gamma-Gamma modelleri ayrı ayrı incelenmiş olsa da, bu modellerin tamamını tek bir açık kaynak kontrol panelinde bütünleştiren, KOBİ ölçeğine odaklanan Türkçe bir uygulama boşluğu bulunuyor.
+    
     **Amaç:** Bu uygulama, küçük ve orta ölçekli işletmeler için müşteri ilişkileri yönetimi (CRM) süreçlerini analiz etmek ve veri odaklı stratejik kararlar almak amacıyla geliştirilmiştir.  
     Müşteri verilerinin analiz edilmesiyle daha doğru segmentasyon, yaşam boyu değer (CLTV) tahmini, kâr analizi ve ürün öneri sistemi sağlanmaktadır.
 

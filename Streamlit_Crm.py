@@ -25,7 +25,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Sidebar ---
-st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/CRM-logo.png/600px-CRM-logo.png", width=90)
+st.sidebar.image("./amblem.png", width=90)
 st.sidebar.title("🔍 Analiz Menüsü")
 secenek = st.sidebar.radio(
     "Lütfen bir analiz seçin:",
@@ -41,7 +41,7 @@ secenek = st.sidebar.radio(
 
 # --- Akademik Giriş Sayfası ---
 if secenek == "Giriş / Hakkında":
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/CRM-logo.png/600px-CRM-logo.png", width=120)
+    st.image("./amblem.png", width=120)
     st.title("AnalyzeWise CRM")
     st.markdown("""
     ### WEB TABANLI CRM SİSTEMİ TASARIMI VE UYGULANMASININ MÜŞTERİ MEMNUNİYETİNE VE İŞ SÜREÇLERİ VERİMLİLİĞİNE ETKİSİ

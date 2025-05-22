@@ -25,7 +25,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Sidebar ---
-st.sidebar.title("🔍 Analiz Menüsü")
+st.sidebar.title(" Analiz Menüsü")
 secenek = st.sidebar.radio(
     "Lütfen bir analiz seçin:",
     (
@@ -40,7 +40,7 @@ secenek = st.sidebar.radio(
 
 # --- Akademik Giriş Sayfası ---
 if secenek == "Giriş / Hakkında":
-    st.image("amblem.png", width=120)
+    st.image("amblem.png", width=150)
     st.title("AnalyzeWise CRM")
     st.markdown("""
     ### WEB TABANLI CRM SİSTEMİ TASARIMI VE UYGULANMASININ MÜŞTERİ MEMNUNİYETİNE VE İŞ SÜREÇLERİ VERİMLİLİĞİNE ETKİSİ
@@ -49,15 +49,15 @@ if secenek == "Giriş / Hakkında":
     Müşteri verilerinin analiz edilmesiyle daha doğru segmentasyon, yaşam boyu değer (CLTV) tahmini, kâr analizi ve ürün öneri sistemi sağlanmaktadır.
 
     **Başlıca Analiz Modülleri:**
-    - 📈 **RFM Analizi:** Müşterileri alışveriş sıklığı, son alışveriş zamanı ve harcama tutarına göre segmentlere ayırır.
-    - 💡 **CLTV Analizi:** Müşteri yaşam boyu değerini tahmin ederek, en değerli müşterilere odaklanmanızı sağlar.
-    - 💰 **Beklenen Satın Alma & Kâr Tahminleri:** Müşteriler bazında gelecekteki satın alma ve kâr beklentilerini sunar.
-    - 🎯 **Ürün Öneri Sistemi:** Birlikte satın alınan ürünlere göre çapraz satış fırsatlarını analiz eder.
+    -  **RFM Analizi:** Müşterileri alışveriş sıklığı, son alışveriş zamanı ve harcama tutarına göre segmentlere ayırır.
+    -  **CLTV Analizi:** Müşteri yaşam boyu değerini tahmin ederek, en değerli müşterilere odaklanmanızı sağlar.
+    -  **Beklenen Satın Alma & Kâr Tahminleri:** Müşteriler bazında gelecekteki satın alma ve kâr beklentilerini sunar.
+    -  **Ürün Öneri Sistemi:** Birlikte satın alınan ürünlere göre çapraz satış fırsatlarını analiz eder.
 
     ---
 
     **Proje Sahibi:** Hakan Güneş  
-    **Danışman:** [Prof. Dr. Selçuk Özdemir]  
+    **Danışman:** Prof. Dr. Selçuk Özdemir  
     **Tarih:** 2025  
     """)
     st.info("Sol menüden analiz türünü seçerek uygulamayı kullanmaya başlayabilirsiniz.")
